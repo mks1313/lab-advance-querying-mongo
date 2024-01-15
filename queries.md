@@ -11,7 +11,7 @@ limit:
 
 ### 2. All the companies that have more than 5000 employees. Limit the search to 20 companies and sort them by **number of employees**.
 
-query: {"number_of_employees": 5000}
+query: {"number_of_employees": { "$gt": 5000} }
 projection: 
 sort: {number_of_employees: 1}
 skip: 
@@ -68,7 +68,7 @@ limit:
 ### 9. Order all the companies by their IPO price in a descending order.
 
 query: 
-projection: {ipo: 1, _id: 0}
+projection: 
 sort: {"ipo.valuation_amount": -1}
 skip: 
 limit:
@@ -99,9 +99,9 @@ limit:
 
 ### 13. All the companies that have been acquired after 2010, order by the acquisition amount, and retrieve only their `name` and `acquisition` field.
 
-query: {"acquisition.acquired_year": {"$gt": 2010}}
-projection: {name: 1, "acquisition.price_amount": 1, _id: 0}
-sort: 
+query: { "acquisition.acquired_year": { "$gt": 2010 } }
+projection: { "name": 1, "acquisition.price_amount": 1, "_id": 0 }
+sort: { "acquisition.price_amount": 1 }
 skip: 
 limit:
 
@@ -115,7 +115,7 @@ limit:
 
 ### 15. All the companies that have been founded on the first seven days of the month, including the seventh. Sort them by their `acquisition price` in a descending order. Limit the search to 10 documents.
 
-query: {founded_day: {"$gte": 1, "$lte": 7}}
+query: {founded_day: {"$lte": 7}}
 projection: 
 sort: {"acquisition.price_amount": -1}
 skip: 
